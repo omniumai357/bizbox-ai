@@ -1,0 +1,31 @@
+### Prompt 2: Execute Forking Plan
+**Objective**: Create and commit `adtopia.io/`, `bizbox.ai/`, and `omnia-shared/` repositories.
+
+**Prompt**: In the NeoArt AI project, execute the enhanced forking plan (p737-766) by creating `adtopia.io/`, `bizbox.ai/`, and `omnia-shared/` repositories. Initialize with shared components (`keycloak-config`, `comfy-ui-service`, `accessible-carousel`, `voice-control-service`) and platform-specific components, integrating adaptive MFA, unified session management, and user profile caching (p802-820).
+
+- **Ideation**: Use Git submodules for `omnia-shared`; ensure compatibility with SSO, Redis caching, and session tracking across platforms.
+- **Implementation**: 
+  - Follow forking steps 1-18 (p739-772):
+    - Clone NeoArt (`neoart-deployment-documentation.zip`), create repos, trim components (p739-741).
+    - Update `keycloak.json` with platform-specific scopes (p742-743).
+    - Add shared components: `ComfyUIService`, `VoiceControlService`, `AccessibleCarousel`, `ModelCache` (p747-753).
+    - Integrate `adaptive-mfa.service.ts`, `unified-session-management.service.ts`, `user-profile-cache.service.ts` (p802-820).
+    - Apply CI/CD pipelines, Kubernetes configs (p758-766).
+    - Run migration scripts (`migrate-database.ts`, p770-772), including gamification (`events`, `badges`) and questionnaire (`questionnaires`) data:
+      ```ts
+      const events = await sourceDb.query.events.findMany();
+      for (const event of events) {
+        await targetDb.insert(schema.events).values(event);
+      }
+      const questionnaires = await sourceDb.query.questionnaires.findMany();
+      for (const q of questionnaires) {
+        await targetDb.insert(schema.questionnaires).values(q);
+      }
+      ```
+  - Ensure `questionnaire-store.ts` changes (p823) are included in `bizbox.ai/`.
+- **Testing**: 
+  - Build repos (`npm run build`).
+  - Test SSO login across NeoArt, AdTopia.io, BizBox.AI.
+  - Verify component functionality: image generation (AdTopia.io), voice commands (BizBox.AI), cached profiles (all platforms).
+  - Confirm migrated data in Supabase.
+- **Output**: Repository commits, `keycloak.json`, component files, migration logs, test results.

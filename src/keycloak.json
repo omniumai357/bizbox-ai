@@ -1,0 +1,35 @@
+{
+  "realm": "omnia",
+  "auth-server-url": "https://keycloak.example.com/auth/",
+  "ssl-required": "external",
+  "resource": "bizbox-frontend",
+  "public-client": true,
+  "confidential-port": 0,
+  "clientId": "bizbox-frontend",
+  "url": "https://keycloak.example.com/auth/",
+  "use-resource-role-mappings": true,
+  "scope": "openid profile email bizbox:landing-pages bizbox:questionnaires bizbox:workflows bizbox:voice",
+  "flows": {
+    "standard": {
+      "scopes": ["openid", "profile", "email", "bizbox:landing-pages", "bizbox:questionnaires", "bizbox:workflows", "bizbox:voice"]
+    },
+    "implicit": {
+      "scopes": ["openid", "profile", "email", "bizbox:landing-pages"]
+    }
+  },
+  "roles": {
+    "realm": [
+      "user",
+      "premium-user",
+      "admin"
+    ],
+    "client": {
+      "bizbox-frontend": [
+        "landing-page-creator",
+        "questionnaire-manager",
+        "workflow-designer",
+        "voice-control-user"
+      ]
+    }
+  }
+}

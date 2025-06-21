@@ -1,0 +1,26 @@
+{
+  "realm": "omnia",
+  "auth-server-url": "https://auth.omniaplatform.com/auth",
+  "ssl-required": "external",
+  "resource": "bizbox",
+  "verify-token-audience": true,
+  "credentials": {
+    "secret": "${env.KEYCLOAK_BIZBOX_SECRET}"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0,
+  "policy-enforcer": {},
+  "roles": [
+    "user",
+    "creator",
+    "admin"
+  ],
+  "scopes": [
+    "profile",
+    "crm_manage",
+    "crm_view",
+    "landing_create",
+    "landing_edit",
+    "landing_deploy"
+  ]
+}

@@ -1,0 +1,4 @@
+cpanel: https://server1.omniumhosting.com:2083/cpsess6742167075/frontend/paper_lantern/index.html?login=1&post_login=28944205011111
+
+username: bizboxgraphics
+password: AccessNow

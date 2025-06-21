@@ -1,0 +1,65 @@
+groups:
+- name: adtopia_bizbox_alerts
+  rules:
+  - alert: HighAdGenerationTime
+    expr: ad_generation_duration_seconds > 30
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High ad generation time"
+      description: "Ad generation is taking longer than 30 seconds consistently for more than 5 minutes."
+      
+  - alert: HighLandingPageGenerationTime
+    expr: landing_page_generation_duration_seconds > 60
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High landing page generation time"
+      description: "Landing page generation is taking longer than 60 seconds consistently for more than 5 minutes."
+      
+  - alert: LowAdClickThroughRate
+    expr: ad_click_rate < 0.02
+    for: 60m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Low ad click-through rate"
+      description: "Ad click-through rate has been below 2% for more than 1 hour."
+      
+  - alert: HighAPIErrorRate
+    expr: sum(rate(api_requests_total{status=~"5.."}[5m])) by (endpoint) / sum(rate(api_requests_total[5m])) by (endpoint) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High API error rate on {{ $labels.endpoint }}"
+      description: "API endpoint {{ $labels.endpoint }} has error rate above 5% for more than 5 minutes."
+      
+  - alert: AIServiceFailure
+    expr: ai_service_health_status == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "AI service failure"
+      description: "The AI service for {{ $labels.service }} is not functioning properly for more than 2 minutes."
+      
+  - alert: CRMTaskBacklog
+    expr: crm_task_queue_size > 100
+    for: 15m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Large CRM task backlog"
+      description: "The CRM task queue has more than 100 pending tasks for over 15 minutes."
+      
+  - alert: ImageGenerationFailureRate
+    expr: rate(image_generation_failures_total[5m]) / rate(image_generation_attempts_total[5m]) > 0.1
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High image generation failure rate"
+      description: "Image generation failures exceed 10% of attempts for more than 5 minutes."
